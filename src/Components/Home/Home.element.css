@@ -1,0 +1,6 @@
+.searchbar {
+    display: flex;
+    flex-direction: column;
+    justify-content:center;
+    background-color: brown;
+}
