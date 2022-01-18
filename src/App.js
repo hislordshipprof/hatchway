@@ -7,8 +7,9 @@ function App() {
 
   return (
     <div className="App">
+     
+        <HomeScreen />
       
-     <HomeScreen />
     </div>
   );
 }

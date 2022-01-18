@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Searchbar from "../Search/Searchbar";
-import '../Home/Home.element.css'
+// import '../Home/Home.element.css'
 // import axios from "axios";
 
 const baseURL = "https://api.hatchways.io/assessment/students";
@@ -8,8 +8,9 @@ const HomeScreen = () => {
   const [students, setStudents] = useState([]);
   const [searchItems, setSearchResult] = useState([]);
   const [isSearching, setIsSearching] = useState(false);
+   
 
-
+ 
   const latestResults = (results, value) => {
     console.log(results);
     if (value) {
@@ -45,30 +46,45 @@ const HomeScreen = () => {
       students?.map((result, index) => dataSearch(result, index))
     );
   };
- 
+  
+   
   return (
-    < >
-      <div className="searchbar">
-        <Searchbar students={students} latestResults={latestResults} />
-      </div>
-      <div class="line-2"></div>
-      <div className="Container">{renderInfo()}</div>
-    </>
+    <div id="main-app">
+      <Searchbar students={students} latestResults={latestResults} />
+      
+      <hr class="line-2"></hr>
+      {renderInfo()
+      }
+      
+    </div>
   );
 };
 
 export default HomeScreen;
 
-function dataSearch(result, index) {
+function dataSearch(result, index,i) {
+
+  
   return (
-    <div 
-       key={result.id}>
-      <img src={result.pic} alt="frame" />
-      <h1>{`${result.firstName} ${result.lastName}`}</h1>
-      <p>Email:{result.email}</p>
-      <p>Company:{result.company}</p>
-      <p>Skills:{result.skill}</p>
-      <p>Average:{result.grades[index]}</p>
+    <div className="container-main">
+      <div className="Container" key={result.id}>
+        <div className="detail-img">
+          <img className="image" src={result.pic} alt="frame" />
+        </div>
+
+        <div className="name-details">
+          <div className="title-name">
+
+            <span >+</span>
+            
+            <h1>{`${result.firstName} ${result.lastName}`}</h1>
+          </div>
+          <p>Email:{result.email}</p>
+          <p>Company:{result.company}</p>
+          <p>Skills:{result.skill}</p>
+          <p>Average:{result.grades[index]}</p>
+        </div>
+      </div>
     </div>
   );
 }
