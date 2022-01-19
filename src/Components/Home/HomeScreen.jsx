@@ -1,16 +1,24 @@
 import React, { useState, useEffect } from "react";
 import Searchbar from "../Search/Searchbar";
-// import '../Home/Home.element.css'
-// import axios from "axios";
+import Show from "../Show";
+
+
+
 
 const baseURL = "https://api.hatchways.io/assessment/students";
 const HomeScreen = () => {
   const [students, setStudents] = useState([]);
   const [searchItems, setSearchResult] = useState([]);
   const [isSearching, setIsSearching] = useState(false);
-   
+   const [selected, setSelected] = useState(null);
 
- 
+ const toggle=(i)=>{
+   if (selected ===i){
+     return setSelected(null)
+   }
+   setSelected(i)
+  }
+
   const latestResults = (results, value) => {
     console.log(results);
     if (value) {
@@ -37,14 +45,33 @@ const HomeScreen = () => {
     fetchDataApi();
   }, []);
 
+
+
+
+
   const renderInfo = () => {
     return searchItems?.length ? (
-      searchItems.map((result, index) => dataSearch(result, index))
+      searchItems.map((result, index) => (
+        <Show
+          result={result}
+          index={index}
+          toggle={toggle}
+          selected={selected}
+        />
+      ))
     ) : isSearching ? (
       <p>No Item</p>
     ) : (
-      students?.map((result, index) => dataSearch(result, index))
+      students?.map((result, index) => (
+        <Show
+          result={result}
+          index={index}
+          toggle={toggle}
+          selected={selected}
+        />
+      ))
     );
+    
   };
   
    
@@ -52,7 +79,7 @@ const HomeScreen = () => {
     <div id="main-app">
       <Searchbar students={students} latestResults={latestResults} />
       
-      <hr class="line-2"></hr>
+      <hr className="line-2"></hr>
       {renderInfo()
       }
       
@@ -62,29 +89,3 @@ const HomeScreen = () => {
 
 export default HomeScreen;
 
-function dataSearch(result, index,i) {
-
-  
-  return (
-    <div className="container-main">
-      <div className="Container" key={result.id}>
-        <div className="detail-img">
-          <img className="image" src={result.pic} alt="frame" />
-        </div>
-
-        <div className="name-details">
-          <div className="title-name">
-
-            <span >+</span>
-            
-            <h1>{`${result.firstName} ${result.lastName}`}</h1>
-          </div>
-          <p>Email:{result.email}</p>
-          <p>Company:{result.company}</p>
-          <p>Skills:{result.skill}</p>
-          <p>Average:{result.grades[index]}</p>
-        </div>
-      </div>
-    </div>
-  );
-}
