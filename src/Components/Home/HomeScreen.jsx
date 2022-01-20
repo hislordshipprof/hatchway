@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Searchbar from "../Search/Searchbar";
 import Show from "../Show";
+import Tags from "../Tag/Tags";
 
 
 
@@ -78,11 +79,10 @@ const HomeScreen = () => {
   return (
     <div id="main-app">
       <Searchbar students={students} latestResults={latestResults} />
-      
+
       <hr className="line-2"></hr>
-      {renderInfo()
-      }
-      
+      {renderInfo()}
+  
     </div>
   );
 };
